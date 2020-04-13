@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # We can use wildcard to ensure both package.json AND package-lock.json are considered
 # where available (npm@5+)
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 # Bundle app source
 COPY . .
 RUN ionic build

@@ -10,16 +10,19 @@ import { V0MODELS } from './controllers/v0/model.index';
 (async () => {
   await sequelize.addModels(V0MODELS);
   await sequelize.sync();
-
+  // NEW - bring in the cors library
+  const cors = require("cors");
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen
-  
+  // NEW - replace custom middleware with the cors() middleware
+  app.use(cors());
   app.use(bodyParser.json());
 
   //CORS Should be restricted
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, POST, DELETE, OPTIONS");
     next();
   });
 
